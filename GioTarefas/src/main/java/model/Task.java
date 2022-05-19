@@ -27,6 +27,10 @@ public class Task {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+    
+    public Task() {
+        this.createdAt = new Date();
+    }
 
     public int getId() {
         return id;
@@ -104,6 +108,10 @@ public class Task {
     public String toString() {
         return "Task{" + "id=" + id + ", idList=" + idList + ", name=" + name + ", description=" + description + ", notes=" + notes + ", isCompleted=" + isCompleted + ", deadline=" + deadline + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
     }
+
+    
+
+   
     
     
     
