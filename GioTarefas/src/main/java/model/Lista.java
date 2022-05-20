@@ -4,7 +4,7 @@ package model;
 import java.util.Date;
 
 
-public class List {
+public class Lista {
     
     private int id;
     private String name;
@@ -12,13 +12,20 @@ public class List {
     private Date createdAt;
     private Date updatedAt;
 
-    public List(int id, String name, String description, Date createdAt, Date updatedAt) {
+    public Lista(int id, String name, String description, Date createdAt, Date updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public Lista() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    
 
     public int getId() {
         return id;
@@ -62,9 +69,7 @@ public class List {
 
     @Override
     public String toString() {
-        return "List{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return "Lista{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
     }
 
-    
-    
 }

@@ -27,8 +27,13 @@ public class TaskController {
         PreparedStatement statement = null;
 
         try {
+            // Criando a conexão BD
             connection = ConnectionFactory.getConnection();
+            
+            // Preparando a query
             statement = connection.prepareStatement(sql);
+            
+            // Setando os valores
             statement.setInt(1, task.getIdList());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
@@ -37,6 +42,8 @@ public class TaskController {
             statement.setDate(6, new Date(task.getDeadline().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
+            
+            // Executando a query
             statement.execute();
 
         } catch (SQLException ex) {
@@ -50,7 +57,7 @@ public class TaskController {
 
     public void update(Task task) {
 
-        String sql = "UPDATE taks SET"
+        String sql = "UPDATE tasks SET "
                 + "idList = ?,"
                 + "name = ?,"
                 + "description = ?,"
@@ -59,16 +66,19 @@ public class TaskController {
                 + "deadline = ?,"
                 + "createdAt = ?,"
                 + "updatedAt = ?"
-                + "WHERE id = ?";
+                + " WHERE id = ?";
 
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
-
+            // Estabelencendo conexão
             connection = ConnectionFactory.getConnection();
+            
+            // Preparando a query
             statement = connection.prepareStatement(sql);
-
+            
+            // Setando os valores
             statement.setInt(1, task.getIdList());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
@@ -77,7 +87,9 @@ public class TaskController {
             statement.setDate(6, new Date(task.getDeadline().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
-
+            statement.setInt(9, task.getId());
+            
+            // executando a query
             statement.execute();
 
         } catch (Exception ex) {
@@ -91,20 +103,25 @@ public class TaskController {
 
     }
 
-    public void removeById(int TaskId) throws SQLException {
+    public void removeById(int TaskId) {
 
         String sql = "DELETE FROM tasks WHERE ID = ?";
-
+        
         Connection connection = null;
-        // Para prepara o comando sql 
+        
         PreparedStatement statement = null;
 
         try {
-
+            // Criando conexão BD
             connection = ConnectionFactory.getConnection();
-
+            
+            // preparando a query
             statement = connection.prepareStatement(sql);
+            
+            // Setando os valores
             statement.setInt(1, TaskId);
+            
+            // Executando a query
             statement.execute();
 
         } catch (Exception ex) {
@@ -120,7 +137,7 @@ public class TaskController {
 
     public List<Task> getAll(int idList) {
         
-        String sql = "SELECT * FROM task where idList = ?";
+        String sql = "SELECT * FROM tasks where idList = ?";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -130,12 +147,16 @@ public class TaskController {
         List<Task> tasks = new ArrayList<Task>();
         
         try{
+            // Criando conexão BD
             connection = ConnectionFactory.getConnection();
             
+            // Preparando a query
             statement = connection.prepareStatement(sql);
+            // Setando o valor que corresponde ao filtro de busca
             statement.setInt(1, idList);
+            // Valor retornado pela execução da query
             resultSet = statement.executeQuery();
-            
+            // Enquanto houverem valores a serem pecorridos no resultSet
             while (resultSet.next()){
                 Task task = new Task();
                 
@@ -162,8 +183,8 @@ public class TaskController {
 
         }
         
-        
-        return null;
+        // Lista de tarefas que foi criada e carregada do BD
+        return tasks;
 
     }
 
