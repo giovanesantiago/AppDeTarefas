@@ -23,7 +23,7 @@ public class ListController {
         PreparedStatement statement = null;
 
         try {
-            // Criando conexão BD
+            // Criando conexï¿½o BD
             connection = ConnectionFactory.getConnection();
 
             // Preparando query
@@ -60,7 +60,7 @@ public class ListController {
         PreparedStatement statement = null;
 
         try {
-            // Criando conexão BD
+            // Criando conexï¿½o BD
             connection = ConnectionFactory.getConnection();
 
             // Preparando query
@@ -91,7 +91,7 @@ public class ListController {
         PreparedStatement statement = null;
 
         try {
-            // Criando conexão BD
+            // Criando conexï¿½o BD
             connection = ConnectionFactory.getConnection();
 
             // preparando a query
@@ -126,7 +126,7 @@ public class ListController {
         ResultSet resultSet = null;
 
         try {
-            // Carregando conexão 
+            // Carregando conexï¿½o 
             connection = ConnectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
 

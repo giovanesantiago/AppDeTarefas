@@ -5,8 +5,15 @@
  */
 package view;
 
+import controller.ListController;
+import controller.TaskController;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import model.Lista;
 
 /**
  *
@@ -14,12 +21,25 @@ import java.awt.Font;
  */
 public class MainScreen extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainScreen
-     */
+    // Criando controladores
+    ListController listController;
+    TaskController taskController;
+    
+    // Modelo do componente grafico da Lista
+    DefaultListModel listModel;
+    
     public MainScreen() {
         initComponents();
+        
+        // Iniciando decoração da tabela
         decorateTableTask();
+        
+        // Inciando Controladores
+        initDataController();
+        
+        // Iniciando Modelos de Lista
+        initComponetsModel();
+        
     }
 
     /**
@@ -136,6 +156,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelListsTitle.setForeground(new java.awt.Color(0, 153, 102));
         jLabelListsTitle.setText(" Listas");
 
+        jLabelListsAdd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelListsAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
         jLabelListsAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,9 +170,9 @@ public class MainScreen extends javax.swing.JFrame {
             jPanelListsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelListsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelListsTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelListsAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelListsTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelListsAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelListsLayout.setVerticalGroup(
@@ -205,11 +226,6 @@ public class MainScreen extends javax.swing.JFrame {
         jListLists.setBackground(new java.awt.Color(255, 255, 255));
         jListLists.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jListLists.setForeground(new java.awt.Color(0, 0, 0));
-        jListLists.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jListLists.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListLists.setFixedCellHeight(40);
         jListLists.setSelectionBackground(new java.awt.Color(0, 153, 102));
@@ -275,7 +291,7 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneTasks)
+            .addComponent(jScrollPaneTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,9 +336,16 @@ public class MainScreen extends javax.swing.JFrame {
         // Criando uma nova tela de cadastro  
         ListDialogScreen listDialogScreen = new ListDialogScreen(this, rootPaneCheckingEnabled);
         
-    // tornando tela visivel
+        // tornando tela visivel
         listDialogScreen.setVisible(true);
         
+        // Colocando ouvinte
+        listDialogScreen.addWindowListener(new WindowAdapter() {
+            // Quando fechar carregar Lista
+            public void windowClosed(WindowEvent e) {
+                loadLists();
+            }
+        });
     }//GEN-LAST:event_jLabelListsAddMouseClicked
 
     private void jLabelTasksAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksAddMouseClicked
@@ -402,6 +425,43 @@ public class MainScreen extends javax.swing.JFrame {
         
         // Criando um sort automatico para as colunas 
         jTableTasks.setAutoCreateRowSorter(true);
+        
+    }
+    
+    // Metodo para inicializar os controladores
+    public void initDataController() {
+        // Controladores
+        listController = new ListController();
+        taskController = new TaskController();
+        
+    }
+    
+    // Metodo para inciar Modelo Grafico
+    public void initComponetsModel() {
+        
+        listModel = new DefaultListModel();
+        loadLists();
+        
+        
+    }
+    
+    // Metodo para carregar os projetos
+    public void loadLists() {
+        // Pegando as listas
+        List<Lista> listas = listController.getAll();
+        
+        // Lipando area
+        listModel.clear();
+        
+        // Adcionando as listas na interface
+        for (int i = 0; i < listas.size();i ++){
+            
+            Lista lista = listas.get(i);
+            
+            listModel.addElement(lista);
+        }
+        
+        jListLists.setModel(listModel);
         
     }
 }

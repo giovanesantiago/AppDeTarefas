@@ -9,12 +9,12 @@
 # 3. Criação das classes de modelo (ok)
 # 4. Criação da conexão com o BD (ok)
 # 5. Criação das classes de controle (Acesso aos dados do banco) (ok)
-# 6. Criação da interface gráfica
+# 6. Criação da interface gráfica 
 - ## 6.1 Criação da tela principal
     - Criação do CellRederer Prazo
     - Criação do CellRederer Editar e Deletar
-- ## 6.2 Criação da tela de Cadastro de Projeto
-- ## 6.3 Criação da tela de Cadastro de Tarefa
+- ## 6.2 Criação da tela de Cadastro de Lista (ok)
+- ## 6.3 Criação da tela de Cadastro de Tarefa (ok)
 ---
 # 7. Implementação dos eventos
 - ## 7.1 Validações
