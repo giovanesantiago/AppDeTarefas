@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Lista;
+import util.TaskTableModel;
 
 /**
  *
@@ -27,6 +28,7 @@ public class MainScreen extends javax.swing.JFrame {
     
     // Modelo do componente grafico da Lista
     DefaultListModel listModel;
+    TaskTableModel taskModel;
     
     public MainScreen() {
         initComponents();
@@ -441,6 +443,10 @@ public class MainScreen extends javax.swing.JFrame {
         
         listModel = new DefaultListModel();
         loadLists();
+        
+        taskModel = new TaskTableModel();
+        
+        jTableTasks.setModel(taskModel);
         
         
     }
