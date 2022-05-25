@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Lista;
+import model.Task;
 import util.TaskTableModel;
 
 /**
@@ -286,6 +287,7 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.setRowHeight(40);
         jTableTasks.setRowMargin(1);
         jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableTasks.setShowHorizontalLines(true);
         jScrollPaneTasks.setViewportView(jTableTasks);
 
@@ -359,6 +361,16 @@ public class MainScreen extends javax.swing.JFrame {
         
         // tornando tela visivel
         taskDialogScreen.setVisible(true);
+        
+//        // Colocando ouvinte
+//        taskDialogScreen.addWindowListener(new WindowAdapter() {
+//            // Quando fechar carregar Tarefas
+//            public void windowClosed(WindowEvent e) {
+//                jTableTasks.setModel(taskModel);
+//                loadTask(3);
+//            }
+//        
+//        });
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
 
     /**
@@ -447,8 +459,16 @@ public class MainScreen extends javax.swing.JFrame {
         taskModel = new TaskTableModel();
         
         jTableTasks.setModel(taskModel);
+        loadTask(3);
         
+    }
+    
+    // Metodo para carrregar as tarefas
+    public void loadTask(int idList) {
         
+       List<Task> tasks = taskController.getAll(idList);
+       taskModel.setTasks(tasks);
+       
     }
     
     // Metodo para carregar os projetos
