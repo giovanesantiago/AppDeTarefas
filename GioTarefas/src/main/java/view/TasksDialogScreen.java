@@ -203,7 +203,7 @@ public class TasksDialogScreen extends javax.swing.JDialog {
             Task task = new Task();
 
             // adicionando dados dos inputs na nova tarefa
-            task.setIdList(3); // lista.getId()
+            task.setIdList(lista.getId()); // lista.getId()
             task.setName(jTextFieldName.getText());
             task.setDescription(jTextAreaDescription.getText());
             task.setNotes(jTextAreaNotas.getText());
