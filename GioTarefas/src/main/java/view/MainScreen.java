@@ -260,6 +260,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         jPanelEmptyList.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -301,26 +302,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelEmptyList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelEmptyList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jPanel5.add(jPanelEmptyList, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,15 +367,17 @@ public class MainScreen extends javax.swing.JFrame {
         // tornando tela visivel
         taskDialogScreen.setVisible(true);
         
-//        // Colocando ouvinte
-//        taskDialogScreen.addWindowListener(new WindowAdapter() {
-//            // Quando fechar carregar Tarefas
-//            public void windowClosed(WindowEvent e) {
-//                jTableTasks.setModel(taskModel);
-//                loadTask(3);
-//            }
-//        
-//        });
+        // Colocando ouvinte
+        taskDialogScreen.addWindowListener(new WindowAdapter() {
+            // Quando fechar carregar Tarefas
+            public void windowClosed(WindowEvent e) {
+                
+                int listIndex = jListLists.getSelectedIndex();
+                Lista lista = (Lista) listModel.get(listIndex);
+                loadTask(lista.getId());
+            }
+        
+        });
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
 
     private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
@@ -402,15 +386,20 @@ public class MainScreen extends javax.swing.JFrame {
         int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
         int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
         
+        Task task = taskModel.getTasks().get(rowIndex);
         // atualizando coluna com click
         switch(columnIndex){
             case 3:
-              Task task = taskModel.getTasks().get(rowIndex);
               taskController.update(task);
               break;
             case 4:
                 break;
             case 5:
+                taskController.removeById(task.getId());
+                taskModel.getTasks().remove(task);
+                int listIndex = jListLists.getSelectedIndex();
+                Lista lista = (Lista) listModel.get(listIndex);
+                loadTask(lista.getId());
                 break;
             
         }
