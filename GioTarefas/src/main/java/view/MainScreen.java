@@ -15,6 +15,8 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Lista;
 import model.Task;
+import util.ButtonColumnCellRederer;
+import util.DeadlineColumnCellRederer;
 import util.TaskTableModel;
 
 /**
@@ -34,14 +36,16 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen() {
         initComponents();
         
-        // Iniciando decoração da tabela
-        decorateTableTask();
+        
         
         // Inciando Controladores
         initDataController();
         
         // Iniciando Modelos de Lista
         initComponetsModel();
+        
+        // Iniciando decoração da tabela
+        decorateTableTask();
         
     }
 
@@ -254,7 +258,7 @@ public class MainScreen extends javax.swing.JFrame {
             jPanelListsListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelListsListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPaneLists)
+                .addComponent(jScrollPaneLists, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -316,9 +320,8 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jPanelListsList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(jPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,6 +482,14 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setFont(new Font("Segoe UI",Font.BOLD, 14));
         jTableTasks.getTableHeader().setBackground(new Color(0,153,102));
         jTableTasks.getTableHeader().setForeground(new Color(255,255,255));
+        
+        jTableTasks.getColumnModel().getColumn(2)
+                .setCellRenderer(new DeadlineColumnCellRederer());
+        
+        jTableTasks.getColumnModel().getColumn(4)
+                .setCellRenderer(new ButtonColumnCellRederer("edit"));
+        jTableTasks.getColumnModel().getColumn(5)
+                .setCellRenderer(new ButtonColumnCellRederer("delete"));
         
         // Criando um sort automatico para as colunas 
         jTableTasks.setAutoCreateRowSorter(true);
