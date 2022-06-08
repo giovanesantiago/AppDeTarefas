@@ -16,8 +16,8 @@
 - ## 6.2 Criação da tela de Cadastro de Lista (ok)
 - ## 6.3 Criação da tela de Cadastro de Tarefa (ok)
 ---
-# 7. Implementação dos eventos
-- ## 7.1 Validações
+# 7. Implementação dos eventos (ok)
+- ## 7.1 Validações (ok)
 ---
 # Ajustes finais
 # Teste da aplicação
