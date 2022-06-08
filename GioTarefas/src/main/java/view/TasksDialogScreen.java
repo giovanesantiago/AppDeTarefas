@@ -199,36 +199,46 @@ public class TasksDialogScreen extends javax.swing.JDialog {
 
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
         try {
-            // Criando um nova tarefa
-            Task task = new Task();
+            
+            if(!jTextFieldName.getText().isEmpty() 
+                    && !jFormattedTextFieldDeadline.getText().isEmpty()) {
+                // Criando um nova tarefa
+                Task task = new Task();
 
-            // adicionando dados dos inputs na nova tarefa
-            task.setIdList(lista.getId()); // lista.getId()
-            task.setName(jTextFieldName.getText());
-            task.setDescription(jTextAreaDescription.getText());
-            task.setNotes(jTextAreaNotas.getText());
-            task.setIsCompleted(false);
+                // adicionando dados dos inputs na nova tarefa
+                task.setIdList(lista.getId()); // lista.getId()
+                task.setName(jTextFieldName.getText());
+                task.setDescription(jTextAreaDescription.getText());
+                task.setNotes(jTextAreaNotas.getText());
+                task.setIsCompleted(false);
             
-            // Trantanto Deadline
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date deadline = null;
-            deadline = dateFormat.parse(jFormattedTextFieldDeadline.getText());
+                // Trantanto Deadline
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date deadline = null;
+                deadline = dateFormat.parse(jFormattedTextFieldDeadline.getText());
             
-            // adicionando deadline a tarefa
-            task.setDeadline(deadline);
+                // adicionando deadline a tarefa
+                task.setDeadline(deadline);
             
-            // Salvando no Banco de dados
-            controller.save(task);
+                // Salvando no Banco de dados
+                controller.save(task);
             
-            // Messagem de ok
-            JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+                // Messagem de ok
+                JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Tarefa não fo salva "
+                        + "pois existe campos não preenchidos.");
+            }
+            
+            
             
         } catch (Exception e) {
             // Mesagem de erro
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
         
-        this.dispose();
+        
         
         
         

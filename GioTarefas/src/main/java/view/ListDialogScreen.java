@@ -153,26 +153,38 @@ public class ListDialogScreen extends javax.swing.JDialog {
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
         
         try{
-             // Criando uma nova lista
-             Lista lista = new Lista();
+            
+            if(!jTextFieldName.getText().equals("")) {
+                // Criando uma nova lista
+                Lista lista = new Lista();
 
-             // Pegando os dados dos inputs e setando na lista
-             lista.setName(jTextFieldName.getText());
-             lista.setDescription(jTextAreaDescription.getText());
+                // Pegando os dados dos inputs e setando na lista
+                lista.setName(jTextFieldName.getText());
+                lista.setDescription(jTextAreaDescription.getText());
 
-             // Salvando no Banco de dados
-             controller.save(lista);
+                // Salvando no Banco de dados
+                controller.save(lista);
 
-             // enviado mensagem de ok
-             JOptionPane.showMessageDialog(rootPane, "Lista salva com sucesso!"); 
+                // enviado mensagem de ok
+                JOptionPane.showMessageDialog(rootPane, "Lista salva com sucesso!"); 
+                // Fechando janela de cadastro
+                this.dispose();
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(rootPane, "O projeto não foi salvo, "
+                        + "pois o campo nome não foi preenchido.");
+            
+            }
+            
+             
              
         }  catch (Exception e) {
             // Enviado mesagem de erro
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         } 
         
-        // Fechando janela de cadastro
-        this.dispose();
+        
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**
