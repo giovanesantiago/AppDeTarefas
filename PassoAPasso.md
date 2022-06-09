@@ -19,5 +19,5 @@
 # 7. Implementação dos eventos (ok)
 - ## 7.1 Validações (ok)
 ---
-# Ajustes finais
-# Teste da aplicação
+# Ajustes finais 
+# Teste da aplicação 
